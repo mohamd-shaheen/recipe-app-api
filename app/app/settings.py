@@ -28,8 +28,10 @@ INSTALLED_APPS = [
     #built Apps
     'rest_framework',
     'drf_spectacular',
+    'rest_framework.authtoken',
     #MyApps
     'core',
+    'app',
 ]
 
 MIDDLEWARE = [
