@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     #MyApps
     'core',
     'app',
+    'recipe',
 ]
 
 MIDDLEWARE = [

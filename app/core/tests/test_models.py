@@ -1,5 +1,7 @@
+from decimal import Decimal
 from django.contrib.auth import get_user_model
 from django.test import TestCase
+from core import models
 
 
 class ModelTests(TestCase):
@@ -45,3 +47,19 @@ class ModelTests(TestCase):
 
         self.assertTrue(user.is_staff)
         self.assertTrue(user.is_superuser)
+
+    def test_create_recipe(self):
+        user = get_user_model().objects.create_user(
+            email='test@example.com',
+            password='123456'
+        )
+
+        recipe = models.Recipe.objects.create(
+            user=user,
+            title='test title',
+            description='test description',
+            price=Decimal('6.7'),
+            time_minutes=5,
+        )
+
+        self.assertEqual(str(recipe), recipe.title)
