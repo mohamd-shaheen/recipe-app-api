@@ -4,6 +4,13 @@ from django.test import TestCase
 from core import models
 
 
+def create_user():
+    return get_user_model().objects.create_user(
+        email='test@example.com',
+        password='testpass123'
+    )
+
+
 class ModelTests(TestCase):
 
     def test_create_user_with_email(self):
@@ -49,10 +56,7 @@ class ModelTests(TestCase):
         self.assertTrue(user.is_superuser)
 
     def test_create_recipe(self):
-        user = get_user_model().objects.create_user(
-            email='test@example.com',
-            password='123456'
-        )
+        user = create_user()
 
         recipe = models.Recipe.objects.create(
             user=user,
@@ -63,3 +67,11 @@ class ModelTests(TestCase):
         )
 
         self.assertEqual(str(recipe), recipe.title)
+
+    def test_create_tag(self):
+        user = create_user()
+        tag = models.Tag.objects.create(
+            user=user,
+            name="test tag"
+        )
+        self.assertEqual(str(tag), tag.name)
